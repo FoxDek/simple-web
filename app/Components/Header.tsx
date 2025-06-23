@@ -60,14 +60,14 @@ export default function Header() {
             </button>
           ) : (
             <>
-              {path === "/login" && (
-                <Link href={"/register"} className='ml-auto text-white'>
+              {path === "/auth/login" && (
+                <Link href={"/auth/register"} className='ml-auto text-white'>
                   Sign up
                 </Link>
               )}
 
-              {path === "/register" && (
-                <Link href={"/login"} className='ml-auto text-white'>
+              {path === "/auth/register" && (
+                <Link href={"/auth/login"} className='ml-auto text-white'>
                   Sign in
                 </Link>
               )}

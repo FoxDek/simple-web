@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en" className={poppins.className}>
       <body className='bg-[#ffffff] flex flex-col min-h-screen'>
         <Header />
-        <main className="flex-grow container mx-auto pt-5 pb-10">{children}</main>
+        <main className="flex-grow container mx-auto pb-10">{children}</main>
       </body>
     </html>
   )
