@@ -36,8 +36,8 @@ export default function Header() {
   const path = usePathname();
 
   return (
-    <div className='bg-blue-500 p-3'>
-      <div className='container mx-auto'>
+    <div className='bg-[#447bba] p-3'>
+      <div className='mx-auto max-w-6xl px-4 sm:px-6 lg:px-8'>
         <div className='flex items-center gap-5'>
           {/* <Link href={"/"}>
             main
