@@ -2,14 +2,14 @@ import { cva } from "class-variance-authority";
 import TabButton from "../Components/TabButton";
 import FriendsSectionsSwitcher from '../Components/FriendsSections/FriendsSectionsSwitcher';
 
-const rightAsideMenu = cva("bg-white rounded-xl border border-gray-200 p-2 min-w-1/3");
+const rightAsideMenu = cva("bg-white rounded-xl border border-gray-200 p-2 min-w-1/3 h-fit");
 const rightAsideMenuContainer = cva("flex flex-col text-sm gap-1");
 
 
 export default function FriendsLayout({children}: {children: React.ReactNode}) {
 
   return (
-    <section className="w-full flex gap-5">
+    <section className="w-full flex gap-5 h-full">
 
       <FriendsSectionsSwitcher />
       

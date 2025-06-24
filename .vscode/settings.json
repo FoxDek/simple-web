@@ -7,6 +7,10 @@
     {
       "folderPath": "simple-web\\lib\\",
       "color": "foldercolorizer.color_996699"
+    },
+    {
+      "folderPath": "simple-web\\app\\api\\auth\\",
+      "color": "foldercolorizer.color_9999ff"
     }
   ]
 }

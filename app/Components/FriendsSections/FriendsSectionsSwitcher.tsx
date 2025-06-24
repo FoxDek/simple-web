@@ -9,7 +9,7 @@ export default function FriendsSectionsSwitcher() {
   const section = searchParams.get('section') || 'all';
   
   return (
-    <div className="bg-white rounded=xl border border-gray-200 w-full p-4 rounded-xl">
+    <div className="bg-white rounded=xl border border-gray-200 w-full p-4 rounded-xl h-full">
       {section === 'all' && <FriendsList />}
       {section === 'requests' && <FriendsRequests />}
       {section === 'search' && <FriendsSearch />}
