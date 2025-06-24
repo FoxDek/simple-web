@@ -1,0 +1,12 @@
+{
+  "folder-color.pathColors": [
+    {
+      "folderPath": "simple-web\\utils\\",
+      "color": "foldercolorizer.color_00cccc"
+    },
+    {
+      "folderPath": "simple-web\\lib\\",
+      "color": "foldercolorizer.color_996699"
+    }
+  ]
+}

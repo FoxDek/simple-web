@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import jwt from 'jsonwebtoken';
+import { verifyAccessToken } from "@/utils/token.utils";
 
 export async function getCurrentUser() {
 
@@ -12,8 +13,14 @@ export async function getCurrentUser() {
   };
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+
+    // const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+    // return payload;
+
+    const tokenVerified = await verifyAccessToken(token);
+    const { payload } = tokenVerified;
     return payload;
+
   } catch (err) {
     console.error('Ошибка: ', err)
     return null
