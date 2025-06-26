@@ -5,9 +5,22 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const login = cva("flex items-center flex-col ")
-const loginForm = cva("flex flex-col gap-2 mt-10")
-const loginFormInput = cva("border-2 border-gray-300 rounded-md p-2")
+// Стили для компонента Login
+const login = cva("login flex items-center flex-col");
+const loginHint = cva("loginHint w-full flex justify-center bg-gray-100 border-b border-gray-200 absolute py-5 px-5 text-sm");
+const loginSubstrate = cva("loginSubstrate mt-30 bg-white p-5 rounded-xl border border-gray-200");
+const loginTitle = cva("loginTitle text-2xl text-center");
+const loginForm = cva("loginForm flex flex-col gap-2 mt-10");
+const loginFormInput = cva("loginFormInput border-2 border-gray-300 rounded-md p-2");
+const formError = cva("loginError text-red-500 text-sm p-2 bg-red-50 rounded");
+const loginButton = cva('loginButton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5', {
+  variants: {
+    active: {
+      true: 'bg-gray-400 cursor-not-allowed',
+      false: 'bg-gray-700 text-white'
+    }
+  }
+})
 
 export default function Page() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -35,11 +48,12 @@ export default function Page() {
         router.push("/");
       } else {
         setErrorMessage(response.data.message || "Ошибка входа");
+        setIsSubmitting(false);
         return;
       }
 
     } catch (err) {
-      
+
       if (axios.isAxiosError(err) && err.response) {
         const apiMessage = err.response.data?.message || 'Ошибка авторизации';
         setErrorMessage(apiMessage)
@@ -54,10 +68,9 @@ export default function Page() {
 
   return (
     <div className={login()}>
-
-      <div className="w-full flex justify-center bg-gray-100 border-b border-gray-200 absolute py-5 text-sm">Для продолжения Вам нужно войти в Simple Web</div>
-      <div className="mt-20">
-        <h1 className='text-2xl text-center'>Login</h1>
+      <div className={loginHint()}>Для продолжения Вам нужно войти в Simple Web</div>
+      <div className={loginSubstrate()}>
+        <h1 className={loginTitle()}>Login</h1>
         <form action={handleFormSubmit} className={loginForm()}>
           <input
             type='text'
@@ -74,17 +87,14 @@ export default function Page() {
             required
           />
           {errorMessage && (
-            <div className='text-red-500 text-sm p-2 bg-red-50 rounded'>
+            <div className={formError()}>
               {errorMessage}
             </div>
           )}
+
           <button
             type='submit'
-            className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5 ${
-              isSubmitting
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-gray-700 text-white"
-            }`}
+            className={loginButton({ active: isSubmitting })}
           >
             {isSubmitting ? "Submitting..." : "Submit"}
           </button>

@@ -1,5 +1,4 @@
 import { cookies } from "next/headers";
-import jwt from 'jsonwebtoken';
 import { verifyAccessToken } from "@/utils/token.utils";
 
 export async function getCurrentUser() {

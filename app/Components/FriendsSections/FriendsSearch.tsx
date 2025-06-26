@@ -1,4 +1,5 @@
 'use client';
+import { cva } from "class-variance-authority";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -95,22 +96,31 @@ const data = [
 
 // const data = []
 
+const friendsSearch = cva('friendsSearch h-full')
+const friendsSearchTitle = cva('friendsSearchTitle text-xl')
+const friendCard = cva('friendCard rounded-xl overflow-clip flex flex-col bg-[#f1f1f1]')
+const friendCardImage = cva('friendCardImage relative aspect-square w-full overflow-hidden')
+const friendCardDetails = cva('friendCardDetails px-3 py-2 text-sm flex flex-col justify-between')
+const friendCardDetailsAddItem = cva("friendCardDetailsAddItem opacity-50 text-xs")
+const friendCardButton = cva("friendCardButton bg-white rounded-lg w-full p-2 hover:bg-gray-200 transform duration-200 ease-in-out")
+const emptyMessage = cva('emptyMessage opacity-50')
+
 export default function FriendsSearch() {
-  const handleAddFriendClick = (e) => {
+  const handleAddFriendClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     console.log("add friend");
   };
 
   return (
-    <div className='h-full'>
-      <h2 className='text-xl'>Возможно вы знакомы:</h2>
+    <div className={friendsSearch()}>
+      <h2 className={friendsSearchTitle()}>Возможно вы знакомы:</h2>
 
       <div
         className={`${
           data.length == 0
             ? "flex items-center justify-center h-full"
-            : "grid grid-cols-2 sm:grid-cols-3 gap-2 mt-5"
+            : "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 gap-2 mt-5"
         }`}
       >
         {data.length > 0 ? (
@@ -118,9 +128,9 @@ export default function FriendsSearch() {
             <Link
               href={`/profile/${user._id}`}
               key={user._id}
-              className='rounded-xl overflow-clip flex flex-col bg-[#f1f1f1]'
+              className={friendCard()}
             >
-              <div className='relative aspect-square w-full overflow-hidden'>
+              <div className={friendCardImage()}>
                 <Image
                   src={user.photo}
                   alt='User photo'
@@ -128,24 +138,26 @@ export default function FriendsSearch() {
                   className='object-cover'
                 />
               </div>
-              <div className='px-3 py-2 text-sm flex flex-col'>
-                <span className=''>
+              <div className={friendCardDetails()}>
+                <span>
                   {user.name} {user.surname}
                 </span>
 
-                <div className="">
-                  {user.age && <span className="opacity-50 text-xs">{user.age} лет</span>}
-                  {user.age && user.city && <span className="opacity-50 text-xs">, </span>}
-                  {user.city && <span className="opacity-50 text-xs">{user.city}</span>}
+                <div>
+                  {user.age && <span className={friendCardDetailsAddItem()}>{user.age} лет</span>}
+                  {user.age && user.city && <span className={friendCardDetailsAddItem()}>, </span>}
+                  {user.city && <span className={friendCardDetailsAddItem()}>{user.city}</span>}
                 </div>
 
-                <button className="bg-white rounded-lg w-full p-2 mt-2 hover:bg-gray-200 transform duration-200 ease-in-out" onClick={(e) => {handleAddFriendClick(e)}}><span className=" text-xs font-bold">+ Добавить</span></button>
+                
 
               </div>
+
+              <div className="mt-auto p-1"><button className={friendCardButton()} onClick={(e) => {handleAddFriendClick(e)}}><span className="text-xs font-bold">+ Добавить</span></button></div>
             </Link>
           ))
         ) : (
-          <p className='opacity-50'>Пользователей не найдено</p>
+          <p className={emptyMessage()}>Пользователей не найдено</p>
         )}
       </div>
     </div>

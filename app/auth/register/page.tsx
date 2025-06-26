@@ -4,9 +4,22 @@ import { cva } from "class-variance-authority";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const registration = cva("flex items-center flex-col py-10");
+// Стили для компонента Registration
+const registration = cva("flex flex-col items-center");
+const registrationSubstrate = cva("mt-15 bg-white p-5 rounded-xl border border-gray-200");
+const registrationTitle = cva("text-2xl text-center");
 const registrationForm = cva("flex flex-col gap-2 mt-10");
 const registrationFormInput = cva("border-2 border-gray-300 rounded-md p-2");
+const registrationError = cva("text-red-500 text-sm p-2 bg-red-50 rounded");
+
+const registrationButton = cva('bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5', {
+  variants: {
+    active: {
+      true: 'bg-gray-400 cursor-not-allowed',
+      false: 'bg-gray-700 text-white'
+    }
+  }
+})
 
 export default function Registration() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -66,60 +79,56 @@ export default function Registration() {
 
   return (
     <div className={registration()}>
-      <h1 className='text-2xl'>Register</h1>
-      <form
-        method='POST'
-        className={registrationForm()}
-        action={handleSubmitRegistration}
-      >
-        <input
-          type='text'
-          name='name'
-          placeholder='Name'
-          className={registrationFormInput()}
-        />
-        <input
-          type='text'
-          name='surname'
-          placeholder='Surname'
-          className={registrationFormInput()}
-        />
-        <input
-          type='email'
-          name='email'
-          placeholder='Email'
-          className={registrationFormInput()}
-        />
-        <input
-          type='password'
-          name='password'
-          placeholder='Password'
-          className={registrationFormInput()}
-        />
-        <input
-          type='password'
-          name='confirmPassword'
-          placeholder='Confirm Password'
-          className={registrationFormInput()}
-        />
-
-        {errorMessage && (
-          <div className='text-red-500 text-sm p-2 bg-red-50 rounded'>
-            {errorMessage}
-          </div>
-        )}
-
-        <button
-          type='submit'
-          className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5 ${
-            isSubmitting
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-gray-700 text-white"
-          }`}
+      <div className={registrationSubstrate()}>
+        <h1 className={registrationTitle()}>Register</h1>
+        <form
+          method='POST'
+          className={registrationForm()}
+          action={handleSubmitRegistration}
         >
-          {isSubmitting ? "Submitting..." : "Submit"}
-        </button>
-      </form>
+          <input
+            type='text'
+            name='name'
+            placeholder='Name'
+            className={registrationFormInput()}
+          />
+          <input
+            type='text'
+            name='surname'
+            placeholder='Surname'
+            className={registrationFormInput()}
+          />
+          <input
+            type='email'
+            name='email'
+            placeholder='Email'
+            className={registrationFormInput()}
+          />
+          <input
+            type='password'
+            name='password'
+            placeholder='Password'
+            className={registrationFormInput()}
+          />
+          <input
+            type='password'
+            name='confirmPassword'
+            placeholder='Confirm Password'
+            className={registrationFormInput()}
+          />
+          {errorMessage && (
+            <div className={registrationError()}>
+              {errorMessage}
+            </div>
+          )}
+          <button
+            type='submit'
+            className={registrationButton({ active: isSubmitting })}
+          >
+            {isSubmitting ? "Submitting..." : "Submit"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

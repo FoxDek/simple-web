@@ -1,8 +1,8 @@
-import { cookies } from "next/headers";
-import AsideMenu from "./Components/AsideMenu";
-import Header from "./Components/Header";
 import "./globals.css";
+import { cookies } from "next/headers";
 import { Poppins } from "next/font/google";
+import { cva } from "class-variance-authority";
+import RootLayoutWrapper from "./Components/RootLayoutWrapper";
 
 export const metadata = {
   title: "Simple Web",
@@ -15,23 +15,20 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
+const body = cva("body bg-[#edeef0] flex flex-col min-h-screen");
+
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-
   const cookieStore = await cookies();
   const token = cookieStore.get("accessToken")?.value;
 
   return (
-    <html lang='en' className={poppins.className}>
-      <body className='bg-[#edeef0] flex flex-col min-h-screen'>
-        <Header />
-        <main className={`flex-grow gap-5 mx-auto pb-5 max-w-6xl px-4 sm:px-6 lg:px-8 w-full ${token && "flex mt-5"}`}>
-          {token && <AsideMenu />}
-          <div className="w-full">{children}</div>
-        </main>
+    <html lang="en" className={poppins.className}>
+      <body className={body()}>
+        <RootLayoutWrapper hasToken={!!token}>{children}</RootLayoutWrapper>
       </body>
     </html>
   );
