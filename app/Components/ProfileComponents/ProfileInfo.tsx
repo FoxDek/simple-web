@@ -10,9 +10,15 @@ const profileInfoDetailsDescription = cva('profileInfoDetailsDescription text-sm
 const profileInfoDetailsAdd = cva('profileInfoDetailsAdd flex gap-3 items-center mt-3');
 const profileInfoDetailsAddItem = cva('profileInfoDetailsAddItem text-sm opacity-50');
 
+type user = {
+  name: string;
+  surname: string;
+  photo: string;
+  age: number;
+  city: string;
+};
 
-
-export default function ProfileInfo({ userData }: any) {
+export default function ProfileInfo({ userData }: { userData: user }) {
   return (
     <div className={profileInfoSubstrate()}>
       <div className={profileInfoContainer()}>
