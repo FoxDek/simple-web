@@ -11,13 +11,14 @@ const header = cva('bg-[#447bba] p-3');
 const headerContainer = cva('mx-auto max-w-6xl px-4 sm:px-6 lg:px-8');
 const headerContent = cva('flex items-center gap-5');
 const headerLogo = cva('text-white text-xl');
-const headerLink = cva('text-white hover:text-[#cfcfcf] transform duration-300 ease-in-out');
+const headerLink = cva('text-white hover:text-[#cfcfcf] transform duration-300 ease-in-out ml-auto');
 const headerIcon = cva('w-6 h-6 fill-white hover:fill-[#cfcfcf] transform duration-300 ease-in-out');
 const burgerMenu = cva('lg:hidden ml-auto');
 const logoutButton = cva('hidden lg:block ml-auto');
 
 export default function Header({ onMenuToggle, isOpen }: { onMenuToggle: () => void; isOpen: boolean }) {
   const [isAuth, setIsAuth] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     axios
@@ -26,7 +27,7 @@ export default function Header({ onMenuToggle, isOpen }: { onMenuToggle: () => v
       .catch((err) => {
         console.error("Ошибка проверки токена: ", err);
       });
-  }, []);
+  }, [pathname]);
 
   const handleLogout = () => {
     axios

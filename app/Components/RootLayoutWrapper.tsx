@@ -8,9 +8,11 @@ import SidebarMenu from "./SidebarMenu";
 export default function RootLayoutWrapper({
   children,
   hasToken,
+  currentUserId,
 }: {
   children: React.ReactNode;
   hasToken: boolean;
+  currentUserId: string;
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -20,7 +22,7 @@ export default function RootLayoutWrapper({
       <main className={`flex-grow gap-5 mx-auto pb-5 max-w-6xl px-4 sm:px-6 lg:px-8 w-full ${
         hasToken ? "flex mt-5" : ""
       }`}>
-        {hasToken && <SidebarMenu onMenuToggle={() => setIsMenuOpen(!isMenuOpen)} isOpen={isMenuOpen} />}
+        {hasToken && <SidebarMenu onMenuToggle={() => setIsMenuOpen(!isMenuOpen)} isOpen={isMenuOpen} currentUserId={currentUserId} />}
         <div className="w-full">{children}</div>
       </main>
     </>

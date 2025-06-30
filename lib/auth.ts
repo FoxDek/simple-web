@@ -1,3 +1,4 @@
+'use server'
 import { cookies } from "next/headers";
 import { verifyAccessToken } from "@/utils/token.utils";
 

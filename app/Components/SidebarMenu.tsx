@@ -2,6 +2,14 @@
 import { cva } from "class-variance-authority";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import UserIcon from "@/public/user-menu-icon.svg";
+import FeedIcon from "@/public/feed-menu-icon.svg";
+import MessagesIcon from "@/public/message-menu-icon.svg";
+import FriendsIcon from "@/public/friends-menu-icon.svg";
+import GroupsIcon from "@/public/groups-menu-icon.svg";
+import PhotosIcon from "@/public/photos-menu-icon.svg";
+import MusicIcon from "@/public/music-menu-icon.svg";
+import VideosIcon from "@/public/videos-menu-icon.svg";
 
 const asideMenu = cva(
   "flex flex-col gap-2 text-sm bg-white lg:bg-transparent fixed lg:static top-0 left-0 h-full w-64 lg:w-auto p-4 lg:p-0 z-50 transition-transform duration-300 ease-in-out",
@@ -16,7 +24,7 @@ const asideMenu = cva(
 );
 
 const asideMenuItem = cva(
-  "whitespace-nowrap hover:bg-gray-200 p-2 rounded-md transform duration-200 ease-in-out block w-full text-left",
+  "whitespace-nowrap hover:bg-gray-200 p-2 rounded-md transform duration-200 ease-in-out w-full text-left flex items-center gap-2",
   {
     variants: {
       active: {
@@ -27,12 +35,16 @@ const asideMenuItem = cva(
   }
 );
 
+const asideMenuItemIcon = cva('w-4 h-auto fill-[#447bba]');
+
 export default function SidebarMenu({
   isOpen,
   onMenuToggle,
+  currentUserId,
 }: {
   isOpen: boolean;
   onMenuToggle: () => void;
+  currentUserId: string;
 }) {
   const pathname = usePathname();
 
@@ -70,37 +82,37 @@ export default function SidebarMenu({
           </button>
         </div>
         <nav className='flex flex-col gap-2'>
-          <Link
-            href='/'
-            className={asideMenuItem({ active: pathname === "/profile" })}
-            onClick={onMenuToggle}
-          >
-            Профиль (WIP)
+          <Link href={`/profile/${currentUserId}`} className={asideMenuItem({ active: pathname === `/profile/${currentUserId}` })} onClick={onMenuToggle}>
+            <UserIcon className={asideMenuItemIcon()} />
+            <span>Профиль (WIP)</span>
           </Link>
           <Link href='/' className={asideMenuItem()} onClick={onMenuToggle}>
-            Лента (WIP)
+            <FeedIcon className={asideMenuItemIcon()} />
+            <span>Лента (WIP)</span>
           </Link>
           <Link href='/' className={asideMenuItem()} onClick={onMenuToggle}>
-            Сообщения (WIP)
+            <MessagesIcon className={asideMenuItemIcon()} />
+            <span>Сообщения (WIP)</span>
           </Link>
-          <Link
-            href='/friends?section=all'
-            className={asideMenuItem({ active: pathname === "/friends" })}
-            onClick={onMenuToggle}
-          >
-            Друзья (WIP)
+          <Link href='/friends?section=all' className={asideMenuItem({ active: pathname === "/friends" })} onClick={onMenuToggle}>
+            <FriendsIcon className={asideMenuItemIcon()} />
+            <span>Друзья (WIP)</span>
           </Link>
           <Link href='/' className={asideMenuItem()} onClick={onMenuToggle}>
-            Сообщества (WIP)
+            <GroupsIcon className={asideMenuItemIcon()} />
+            <span>Сообщества (WIP)</span>
           </Link>
           <Link href='/' className={asideMenuItem()} onClick={onMenuToggle}>
-            Фото (WIP)
+            <PhotosIcon className={asideMenuItemIcon()} />
+            <span>Фото (WIP)</span>
           </Link>
           <Link href='/' className={asideMenuItem()} onClick={onMenuToggle}>
-            Музыка (WIP)
+            <MusicIcon className={asideMenuItemIcon()} />
+            <span>Музыка (WIP)</span>
           </Link>
           <Link href='/' className={asideMenuItem()} onClick={onMenuToggle}>
-            Видео (WIP)
+            <VideosIcon className={asideMenuItemIcon()} />
+            <span>Видео (WIP)</span>
           </Link>
         </nav>
       </aside>

@@ -6,25 +6,36 @@ import { useRouter } from "next/navigation";
 
 // Стили для компонента Registration
 const registration = cva("flex flex-col items-center");
-const registrationSubstrate = cva("mt-15 bg-white p-5 rounded-xl border border-gray-200");
+const registrationSubstrate = cva(
+  "mt-15 bg-white p-5 rounded-xl border border-gray-200"
+);
 const registrationTitle = cva("text-2xl text-center");
 const registrationForm = cva("flex flex-col gap-2 mt-10");
 const registrationFormInput = cva("border-2 border-gray-300 rounded-md p-2");
 const registrationError = cva("text-red-500 text-sm p-2 bg-red-50 rounded");
 
-const registrationButton = cva('bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5', {
-  variants: {
-    active: {
-      true: 'bg-gray-400 cursor-not-allowed',
-      false: 'bg-gray-700 text-white'
-    }
+const registrationButton = cva(
+  "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5",
+  {
+    variants: {
+      active: {
+        true: "bg-gray-400 cursor-not-allowed",
+        false: "bg-gray-700 text-white",
+      },
+    },
   }
-})
+);
 
 export default function Registration() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+
+  function onSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    handleSubmitRegistration(formData);
+  }
 
   async function handleSubmitRegistration(formData: FormData) {
     setErrorMessage(null);
@@ -84,7 +95,8 @@ export default function Registration() {
         <form
           method='POST'
           className={registrationForm()}
-          action={handleSubmitRegistration}
+          // action={handleSubmitRegistration}
+          onSubmit={onSubmitHandler}
         >
           <input
             type='text'
@@ -117,9 +129,7 @@ export default function Registration() {
             className={registrationFormInput()}
           />
           {errorMessage && (
-            <div className={registrationError()}>
-              {errorMessage}
-            </div>
+            <div className={registrationError()}>{errorMessage}</div>
           )}
           <button
             type='submit'

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { cva } from "class-variance-authority";
+import { IUser } from "@/models/User";
 
 const profileInfoSubstrate = cva('profileInfoSubstrate bg-white rounded-xl border border-gray-200 p-3');
 const profileInfoContainer = cva('profileInfoContainer flex flex-col items-center sm:flex-row gap-5 sm:gap-10 md:gap-25');
@@ -10,21 +11,14 @@ const profileInfoDetailsDescription = cva('profileInfoDetailsDescription text-sm
 const profileInfoDetailsAdd = cva('profileInfoDetailsAdd flex gap-3 items-center mt-3');
 const profileInfoDetailsAddItem = cva('profileInfoDetailsAddItem text-sm opacity-50');
 
-type user = {
-  name: string;
-  surname: string;
-  photo: string;
-  age: number;
-  city: string;
-};
 
-export default function ProfileInfo({ userData }: { userData: user }) {
+export default function ProfileInfo({ userData }: { userData: IUser }) {
   return (
     <div className={profileInfoSubstrate()}>
       <div className={profileInfoContainer()}>
         <div className={profileInfoImage()}>
           <Image
-            src={userData.photo}
+            src={userData.avatar || "/default-user-photo.png"}
             alt='User photo'
             fill
             className='object-cover'
@@ -36,8 +30,7 @@ export default function ProfileInfo({ userData }: { userData: user }) {
             {userData.name} {userData.surname}
           </h2>
           <p className={profileInfoDetailsDescription()}>
-            cultivate your hunger, before you idealize. motivate your anger to
-            make them all realize
+            {userData.bio}
           </p>
 
           <div className={profileInfoDetailsAdd()}>
