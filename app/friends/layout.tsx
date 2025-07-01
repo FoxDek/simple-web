@@ -17,7 +17,7 @@ export default function FriendsLayout() {
       <aside className={rightAsideMenu()}>
         <div className={rightAsideMenuContainer()}>
           <TabButton label="Мои друзья" value='all' />
-          <TabButton label="Заявки в друзья" value='requests' />
+          <TabButton label="Заявки в друзья" value='requests'></TabButton>
           <TabButton label="Поиск друзей" value='search' />
         </div>
       </aside>

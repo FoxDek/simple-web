@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority";
 import ProfileActionsButtons from "./ProfileActionsButtons";
-import { getSubscribersWord } from "@/utils/getSubscribersWord";
+import { getSubscribersWord } from "@/utils/getSubscribersWord.utils";
 
 const profileFriends = cva('profileFriends bg-white rounded-xl border border-gray-200 p-3 flex justify-between items-center')
 

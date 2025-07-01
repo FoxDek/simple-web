@@ -1,6 +1,6 @@
 'use client';
 import { useState } from "react";
-import { formatRelativeDate } from "@/utils/dateFormat";
+import { formatRelativeDate } from "@/utils/dateFormat.utils";
 
 const samplePost = {
   author: "Иван Зубрадаев",

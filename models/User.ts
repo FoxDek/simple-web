@@ -24,6 +24,7 @@ export interface IUser extends Document {
   friends: Schema.Types.ObjectId[];
   friendsRequests: Schema.Types.ObjectId[];
   subscribers: Schema.Types.ObjectId[];
+  myFriendsRequests: Schema.Types.ObjectId[];
   blockedUsers: Schema.Types.ObjectId[];
   groups: Schema.Types.ObjectId[];
 
@@ -107,6 +108,11 @@ const UserSchema = new Schema<IUser>({
     default: [],
   },
   friendsRequests: {
+    type: [Schema.Types.ObjectId],
+    ref: "User",
+    default: [],
+  },
+  myFriendsRequests: {
     type: [Schema.Types.ObjectId],
     ref: "User",
     default: [],
